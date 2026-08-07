@@ -4,69 +4,103 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Imobiliar — Atingimento da Meta | CondoConta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
+:root {
+  --paper: #F4F6FA; --ink: #0C2440; --navy: #14365C; --navy-deep: #0A2138;
+  --navy-mid: #1E4B7A; --gold: #F4B72C; --gold-deep: #C98F0C; --muted: #5E748C;
+  --line: #DCE3EC; --line-2: #EAEFF5; --card: #FFFFFF;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d1117;color:#e0e0e0;padding:20px}
-h1{font-size:22px;text-align:center;margin-bottom:4px}
-h1 span{color:#1abc9c}
-.sub{text-align:center;color:#8b949e;margin-bottom:20px;font-size:13px}
-.kpi-row{display:flex;gap:16px;flex-wrap:wrap;max-width:1400px;margin:0 auto 20px}
-.kpi{flex:1;min-width:180px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;text-align:center}
-.kpi .val{font-size:28px;font-weight:700;color:#1abc9c}
-.kpi .lbl{font-size:12px;color:#8b949e;margin-top:4px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1400px;margin:0 auto}
-.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px}
-.card.full{grid-column:1/-1}
-.card h2{font-size:14px;color:#1abc9c;margin-bottom:12px}
-.chart-wrap{position:relative;width:100%;max-height:380px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
+.sheet{max-width:1200px;margin:0 auto;padding:0}
+header{background:var(--navy-deep);padding:30px 44px;text-align:center}
+header .logo{font-family:'Sora',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+header h1{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:4px}
+header h1 span{color:var(--gold)}
+header .sub{font-size:13px;color:rgba(255,255,255,.55);font-weight:400}
+.pad{padding:30px 44px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px 44px;background:var(--card);border-bottom:1px solid var(--line)}
+.kpi{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center}
+.kpi .val{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--navy)}
+.kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.chart-section{background:var(--card);padding:30px 44px;border-bottom:1px solid var(--line)}
+.chart-section h2{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:16px}
+.chart-wrap{position:relative;width:100%;max-height:350px}
 .chart-wrap canvas{width:100%!important}
-table{width:100%;border-collapse:collapse;font-size:11px}
-th{text-align:left;padding:6px 4px;border-bottom:1px solid #30363d;color:#8b949e;font-weight:500;position:sticky;top:0;background:#161b22;z-index:1}
-td{padding:5px 4px;border-bottom:1px solid #21262d;white-space:nowrap}
-tr:hover td{background:#1c2333}
+.table-section{background:var(--card);padding:30px 44px}
+.table-section h2{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:16px}
+table{width:100%;border-collapse:collapse;font-size:12px;font-family:'IBM Plex Mono',monospace;letter-spacing:.04em}
+th{text-align:left;padding:10px 8px;border-bottom:2px solid var(--navy);color:var(--navy);font-family:'Inter',sans-serif;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.08em;position:sticky;top:0;background:var(--card);z-index:1}
+td{padding:8px;border-bottom:1px solid var(--line-2);color:var(--ink)}
+tr:hover td{background:var(--paper)}
 .num{text-align:right;font-variant-numeric:tabular-nums}
-.scroll{max-height:500px;overflow:auto}
-.bar-wrap{display:inline-block;width:60px;height:7px;background:#21262d;border-radius:4px;vertical-align:middle;margin-right:6px}
-.bar-fill{height:100%;border-radius:4px}
-.green{background:#1abc9c}.yellow{background:#f1c40f}.red{background:#e74c3c}
-.footer{text-align:center;color:#8b949e;margin-top:20px;font-size:11px}
-.over{color:#1abc9c;font-weight:700}
+.scroll{max-height:550px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+.meta-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:.04em}
+.badge-good{background:#E6F4EA;color:#137333}
+.badge-warn{background:#FEF7E0;color:#B06000}
+.badge-low{background:#FCE8E6;color:#C5221F}
+footer{background:var(--navy-deep);padding:24px 44px;text-align:center;font-size:11px;color:rgba(255,255,255,.45)}
+footer span{color:var(--gold)}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-deep);margin-bottom:6px}
+.rule-gold{width:46px;height:3px;background:var(--gold);margin-bottom:16px}
+@media(max-width:768px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr);padding:16px}
+  .pad,.chart-section,.table-section{padding:20px}
+  header{padding:24px 20px}
+  header h1{font-size:20px}
+}
 </style>
 </head>
 <body>
 
-<h1>🎯 <span>Imobiliar</span> — Atingimento da Meta (Vol. Imob)</h1>
-<p class="sub">Vol. Imob = 100% da meta · Boletos mensais = % atingido · 46 administradoras</p>
+<div class="sheet">
 
-<div class="kpi-row" id="kpis"></div>
+<header>
+  <div class="logo">CondoConta · POD ERP</div>
+  <h1>Atingimento da Meta · <span>Imobiliar</span></h1>
+  <p class="sub">Vol. Imob = 100% da meta · Boletos mensais = % atingido · Janeiro a Julho 2026 · 46 administradoras</p>
+</header>
 
-<div class="grid">
-  <div class="card full">
-    <h2>📈 % de Atingimento Mensal (Boletos / Vol. Imob)</h2>
-    <div class="chart-wrap"><canvas id="chartAtingimento"></canvas></div>
-  </div>
-  <div class="card full">
-    <h2>📋 Detalhamento por ADM — Meta vs Realizado (Julho/2026)</h2>
-    <div class="scroll">
-    <table>
-      <thead><tr>
-        <th>#</th><th>ADM</th><th class="num">Vol. Imob (Meta)</th>
-        <th class="num">Jan</th><th class="num">Fev</th><th class="num">Mar</th>
-        <th class="num">Abr</th><th class="num">Mai</th><th class="num">Jun</th>
-        <th class="num">Jul</th>
-        <th class="num">Ating. Jul</th>
-      </tr></thead>
-      <tbody id="tabela"></tbody>
-    </table>
-    </div>
+<div class="kpi-grid" id="kpis"></div>
+
+<div class="chart-section">
+  <div class="eyebrow">Evolução Mensal</div>
+  <h2>% de Atingimento (Boletos / Vol. Imob)</h2>
+  <div class="rule-gold"></div>
+  <div class="chart-wrap"><canvas id="chartAtingimento"></canvas></div>
+</div>
+
+<div class="table-section">
+  <div class="eyebrow">Detalhamento por ADM</div>
+  <h2>Meta vs Realizado — Julho/2026</h2>
+  <div class="rule-gold"></div>
+  <div class="scroll">
+  <table>
+    <thead><tr>
+      <th>#</th><th>Administradora</th>
+      <th class="num">Meta (Vol. Imob)</th>
+      <th class="num">Jan</th><th class="num">Fev</th><th class="num">Mar</th>
+      <th class="num">Abr</th><th class="num">Mai</th><th class="num">Jun</th>
+      <th class="num">Jul</th>
+      <th class="num">Ating. Jul</th>
+    </tr></thead>
+    <tbody id="tabela"></tbody>
+  </table>
   </div>
 </div>
 
-<p class="footer">Vol. Imob = 100% da meta | % = Boletos do mês ÷ Vol. Imob | CondoConta · POD ERP</p>
+<footer>
+  <span>CondoConta</span> · condoconta.com.br · POD ERP · Julho 2026<br>
+  Fonte: Power BI & Databricks · Design System CondoConta
+</footer>
+
+</div>
 
 <script>
-// Dados: nome, [jan,fev,mar,abr,mai,jun,jul], volImob (meta)
 const ADMS = [
   ["(SEM ADMIN)",[4813,5231,6295,5567,5841,6113,6259],0],
   ["AGORA CIA IMOBILIARIA",[1545,1441,1478,1523,1682,1585,1632],1028],
@@ -121,15 +155,13 @@ const comMeta = ADMS.filter(a=>a[2]>0);
 const totalMeta = comMeta.reduce((s,a)=>s+a[2],0);
 const boletosJul = ADMS.reduce((s,a)=>s+a[1][6],0);
 
-// KPIs
 document.getElementById('kpis').innerHTML = `
   <div class="kpi"><div class="val">${comMeta.length}</div><div class="lbl">ADMs com Meta</div></div>
-  <div class="kpi"><div class="val">${totalMeta.toLocaleString()}</div><div class="lbl">Vol. Imob Total (Meta)</div></div>
+  <div class="kpi"><div class="val">${totalMeta.toLocaleString()}</div><div class="lbl">Vol. Imob Total</div></div>
   <div class="kpi"><div class="val">${boletosJul.toLocaleString()}</div><div class="lbl">Boletos Julho</div></div>
-  <div class="kpi"><div class="val">${(boletosJul/totalMeta*100).toFixed(1)}%</div><div class="lbl">Atingimento Global Jul</div></div>
+  <div class="kpi"><div class="val">${(boletosJul/totalMeta*100).toFixed(1)}%</div><div class="lbl">Atingimento Global</div></div>
 `;
 
-// Gráfico: % atingimento mensal agregado
 const metaMensal = MESES.map((_,i)=>{
   const b = ADMS.reduce((s,a)=>s+a[1][i],0);
   return totalMeta>0 ? (b/totalMeta*100) : 0;
@@ -140,48 +172,41 @@ new Chart(document.getElementById('chartAtingimento'),{
   data:{
     labels:MESES,
     datasets:[{
-      label:'% Atingimento (Boletos/Vol.Imob)',
+      label:'% Atingimento',
       data:metaMensal,
-      backgroundColor: metaMensal.map(v=>v>=100?'rgba(26,188,156,0.7)':v>=80?'rgba(241,196,15,0.7)':'rgba(231,76,60,0.7)'),
-      borderColor: metaMensal.map(v=>v>=100?'#1abc9c':v>=80?'#f1c40f':'#e74c3c'),
+      backgroundColor: metaMensal.map(v=>v>=100?'rgba(20,54,92,.85)':v>=80?'rgba(244,183,44,.85)':'rgba(197,34,31,.7)'),
+      borderColor: metaMensal.map(v=>v>=100?'#14365C':v>=80?'#F4B72C':'#C5221F'),
       borderWidth:1,
       borderRadius:6
     }]
   },
   options:{
     responsive:true,
-    plugins:{
-      legend:{display:false},
-      tooltip:{callbacks:{label:c=>c.raw.toFixed(1)+'%'}}
-    },
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw.toFixed(1)+'%'}}},
     scales:{
-      y:{beginAtZero:true, ticks:{color:'#8b949e',callback:v=>v+'%'}, grid:{color:'#21262d'}},
-      x:{ticks:{color:'#8b949e'},grid:{display:false}}
+      y:{beginAtZero:true,ticks:{color:'#5E748C',callback:v=>v+'%'},grid:{color:'#DCE3EC'}},
+      x:{ticks:{color:'#5E748C'},grid:{display:false}}
     }
   }
 });
 
-// Tabela
 const tbody = document.getElementById('tabela');
 const sorted = [...ADMS].sort((a,b)=>b[2]-a[2]||b[1][6]-a[1][6]);
 
 sorted.forEach((a,i)=>{
   const [nome,meses,meta] = a;
   const pctJul = meta>0 ? (meses[6]/meta*100) : 0;
-  const color = pctJul>=100?'#1abc9c':pctJul>=50?'#f1c40f':'#e74c3c';
-  const barW = Math.min(pctJul,150);
-  
+  const badge = pctJul>=100?'badge-good':pctJul>=50?'badge-warn':'badge-low';
   const tr = document.createElement('tr');
   tr.innerHTML = `
-    <td>${i+1}</td>
-    <td>${nome}</td>
-    <td class="num" style="font-weight:600">${meta>0?meta.toLocaleString():'<span style=color:#484f58>-</span>'}</td>
+    <td style="color:var(--muted)">${i+1}</td>
+    <td style="font-weight:600">${nome}</td>
+    <td class="num" style="font-weight:600;color:var(--navy)">${meta>0?meta.toLocaleString():'<span style=color:var(--muted)>—</span>'}</td>
     ${meses.map((v,j)=>{
       const p = meta>0?(v/meta*100):0;
-      const c = p>=100?'color:#1abc9c;font-weight:700':p>=50?'color:#f1c40f':'';
-      return `<td class="num" style="${c}">${v>0?v.toLocaleString():'<span style=color:#484f58>-</span>'}<br><small style=color:#8b949e>${meta>0?p.toFixed(1)+'%':'—'}</small></td>`;
+      return `<td class="num">${v>0?`<span style="font-weight:500">${v.toLocaleString()}</span>`:'<span style=color:var(--muted)>—</span>'}<br><small style=color:var(--muted)>${meta>0?p.toFixed(1)+'%':'—'}</small></td>`;
     }).join('')}
-    <td class="num" style="color:${color};font-weight:700">${pctJul.toFixed(1)}%</td>
+    <td class="num"><span class="meta-badge ${badge}">${pctJul.toFixed(1)}%</span></td>
   `;
   tbody.appendChild(tr);
 });
