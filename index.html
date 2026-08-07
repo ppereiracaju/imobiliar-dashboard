@@ -9,207 +9,63 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
-:root {
-  --paper: #F4F6FA; --ink: #0C2440; --navy: #14365C; --navy-deep: #0A2138;
-  --navy-mid: #1E4B7A; --gold: #F4B72C; --gold-deep: #C98F0C; --muted: #5E748C;
-  --line: #DCE3EC; --line-2: #EAEFF5; --card: #FFFFFF;
-}
+:root{--paper:#F4F6FA;--ink:#0C2440;--navy:#14365C;--navy-deep:#0A2138;--navy-mid:#1E4B7A;--gold:#F4B72C;--gold-deep:#C98F0C;--muted:#5E748C;--line:#DCE3EC;--line-2:#EAEFF5;--card:#FFFFFF}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
-.sheet{max-width:1200px;margin:0 auto;padding:0}
+.sheet{max-width:1200px;margin:0 auto}
 header{background:var(--navy-deep);padding:30px 44px;text-align:center}
 header .logo{font-family:'Sora',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
 header h1{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:4px}
 header h1 span{color:var(--gold)}
-header .sub{font-size:13px;color:rgba(255,255,255,.55);font-weight:400}
+header .sub{font-size:13px;color:rgba(255,255,255,.55)}
 .pad{padding:30px 44px}
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px 44px;background:var(--card);border-bottom:1px solid var(--line)}
 .kpi{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center}
 .kpi .val{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--navy)}
 .kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
 .chart-section{background:var(--card);padding:30px 44px;border-bottom:1px solid var(--line)}
-.chart-section h2{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:16px}
+.chart-section h2{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px}
 .chart-wrap{position:relative;width:100%;max-height:350px}
 .chart-wrap canvas{width:100%!important}
 .table-section{background:var(--card);padding:30px 44px}
-.table-section h2{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:16px}
+.table-section h2{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px}
 table{width:100%;border-collapse:collapse;font-size:12px;font-family:'IBM Plex Mono',monospace;letter-spacing:.04em}
 th{text-align:left;padding:10px 8px;border-bottom:2px solid var(--navy);color:var(--navy);font-family:'Inter',sans-serif;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.08em;position:sticky;top:0;background:var(--card);z-index:1}
-td{padding:8px;border-bottom:1px solid var(--line-2);color:var(--ink)}
+td{padding:8px;border-bottom:1px solid var(--line-2)}
 tr:hover td{background:var(--paper)}
 .num{text-align:right;font-variant-numeric:tabular-nums}
 .scroll{max-height:550px;overflow:auto;border:1px solid var(--line);border-radius:8px}
-.meta-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:.04em}
+.meta-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;font-family:'Inter',sans-serif}
 .badge-good{background:#E6F4EA;color:#137333}
 .badge-warn{background:#FEF7E0;color:#B06000}
 .badge-low{background:#FCE8E6;color:#C5221F}
-footer{background:var(--navy-deep);padding:24px 44px;text-align:center;font-size:11px;color:rgba(255,255,255,.45)}
-footer span{color:var(--gold)}
 .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-deep);margin-bottom:6px}
 .rule-gold{width:46px;height:3px;background:var(--gold);margin-bottom:16px}
-@media(max-width:768px){
-  .kpi-grid{grid-template-columns:repeat(2,1fr);padding:16px}
-  .pad,.chart-section,.table-section{padding:20px}
-  header{padding:24px 20px}
-  header h1{font-size:20px}
-}
+footer{background:var(--navy-deep);padding:24px 44px;text-align:center;font-size:11px;color:rgba(255,255,255,.45)}
+footer span{color:var(--gold)}
+@media(max-width:768px){.kpi-grid{grid-template-columns:repeat(2,1fr);padding:16px}.pad,.chart-section,.table-section{padding:20px}header{padding:24px 20px}header h1{font-size:20px}}
 </style>
 </head>
 <body>
-
 <div class="sheet">
-
-<header>
-  <div class="logo">CondoConta · POD ERP</div>
-  <h1>Atingimento da Meta · <span>Imobiliar</span></h1>
-  <p class="sub">Vol. Imob = 100% da meta · Boletos mensais = % atingido · Janeiro a Julho 2026 · 46 administradoras</p>
-</header>
-
+<header><div class="logo">CondoConta · POD ERP</div><h1>Atingimento da Meta · <span>Imobiliar</span></h1><p class="sub">Vol. Imob = 100% · Boletins mensais = % atingido · Atualizado 07/08/2026 14:40 BRT</p></header>
 <div class="kpi-grid" id="kpis"></div>
-
-<div class="chart-section">
-  <div class="eyebrow">Evolução Mensal</div>
-  <h2>% de Atingimento (Boletos / Vol. Imob)</h2>
-  <div class="rule-gold"></div>
-  <div class="chart-wrap"><canvas id="chartAtingimento"></canvas></div>
+<div class="chart-section"><div class="eyebrow">Evolução Mensal</div><h2>% de Atingimento (Boletos / Vol. Imob)</h2><div class="rule-gold"></div><div class="chart-wrap"><canvas id="chartAtingimento"></canvas></div></div>
+<div class="table-section"><div class="eyebrow">Detalhamento</div><h2>Meta vs Realizado</h2><div class="rule-gold"></div><div class="scroll"><table><thead><tr><th>#</th><th>Administradora</th><th class="num">Meta</th><th class="num">Jan</th><th class="num">Fev</th><th class="num">Mar</th><th class="num">Abr</th><th class="num">Mai</th><th class="num">Jun</th><th class="num">Jul</th><th class="num">Ating. Jul</th></tr></thead><tbody id="tabela"></tbody></table></div></div>
+<footer><span>CondoConta</span> · condoconta.com.br · POD ERP · 07/08/2026 14:40 BRT · Fonte: ds_emissoes_erp</footer>
 </div>
-
-<div class="table-section">
-  <div class="eyebrow">Detalhamento por ADM</div>
-  <h2>Meta vs Realizado — Julho/2026</h2>
-  <div class="rule-gold"></div>
-  <div class="scroll">
-  <table>
-    <thead><tr>
-      <th>#</th><th>Administradora</th>
-      <th class="num">Meta (Vol. Imob)</th>
-      <th class="num">Jan</th><th class="num">Fev</th><th class="num">Mar</th>
-      <th class="num">Abr</th><th class="num">Mai</th><th class="num">Jun</th>
-      <th class="num">Jul</th>
-      <th class="num">Ating. Jul</th>
-    </tr></thead>
-    <tbody id="tabela"></tbody>
-  </table>
-  </div>
-</div>
-
-<footer>
-  <span>CondoConta</span> · condoconta.com.br · POD ERP · Julho 2026<br>
-  Fonte: Power BI & Databricks · Design System CondoConta
-</footer>
-
-</div>
-
 <script>
-const ADMS = [
-  ["(SEM ADMIN)",[4813,5231,6295,5567,5841,6113,6259],0],
-  ["AGORA CIA IMOBILIARIA",[1545,1441,1478,1523,1682,1585,1632],1028],
-  ["ALFA CITY",[1,23,12,28,27,27,31],4242],
-  ["ALIANCA",[74,103,0,0,0,0,0],0],
-  ["ALUGA NEGOCIOS",[132,142,138,142,135,192,183],251],
-  ["AREA COMUM",[454,456,462,454,449,496,450],541],
-  ["AZENHA",[5041,4587,5349,4605,4342,4872,4923],19353],
-  ["BONA",[474,1182,2531,3232,3197,2297,3411],7499],
-  ["BRIDGE",[185,218,185,214,244,219,199],565],
-  ["CASARAO IMOVEIS",[6460,5581,9197,7793,6167,7834,7312],8587],
-  ["CENTRAL DE IMOVEIS",[3238,2991,3528,3008,2993,3213,3105],3887],
-  ["COMPAGNA",[2,4,6,3,5,7,4],4],
-  ["CONCEITO PREDIAL",[328,238,368,290,378,291,420],241],
-  ["CONDOTTA IMOVEIS",[912,1012,979,970,860,918,875],931],
-  ["CONNECTA",[54,57,47,35,35,35,38],0],
-  ["DAPPER",[187,960,1733,928,1001,983,881],1175],
-  ["DOCA IMOVEIS",[0,0,0,0,2,0,0],0],
-  ["DOMINIO IMOVEIS",[304,286,316,309,324,361,329],3480],
-  ["FORTES IMOVEIS",[0,0,0,26,12,33,34],65],
-  ["G3 ASSESSORIA",[2932,2964,2909,2916,2809,773,699],2743],
-  ["GARCIA IMOVEIS",[1987,1647,1994,1809,1752,1742,1801],1757],
-  ["GRAMADO",[806,261,1506,186,952,1402,839],1111],
-  ["IMOBILIAR INFORMATICA",[62,66,80,83,75,111,71],0],
-  ["DIMOVEL",[0,0,0,13,430,513,570],571],
-  ["ROSPIDE",[0,0,1802,2035,2098,2051,2883],2830],
-  ["YARA",[92,120,109,117,100,65,60],863],
-  ["INVICTA",[0,23,403,313,325,266,269],218],
-  ["JS ADMINISTRADORA",[0,0,69,65,67,66,69],0],
-  ["LOCATTO",[0,0,0,0,0,0,75],0],
-  ["LUAGGE IMOVEIS",[2368,2370,3560,3658,2775,3578,2924],2003],
-  ["MACHADO E SILVEIRA",[8,12,15,10,2,2,2],26],
-  ["NEW IMOVEIS",[491,551,539,510,467,452,457],715],
-  ["PERFIL IMOVEIS",[0,0,0,0,0,0,43],0],
-  ["PROPER",[959,925,1052,1068,1023,1078,1092],1008],
-  ["REAL MAP",[0,0,0,0,0,13,33],127],
-  ["REQUINTE",[2331,2371,2615,2514,2503,2488,2627],2761],
-  ["RESCHKE VARGAS",[168,160,153,163,189,178,191],0],
-  ["SAUER & SAUER",[156,146,133,124,136,154,147],240],
-  ["SERRA LAR",[147,164,136,146,155,158,147],1241],
-  ["SILVEIRA LOCACAO",[1202,1190,1249,1247,1063,1078,867],1430],
-  ["SOMMA",[1069,1039,1195,1076,952,1146,1201],2279],
-  ["SP IMOBILIARIA",[2158,3153,4200,3227,3090,3106,3133],4604],
-  ["STEFANI IMOVEIS",[2762,2900,2944,2986,2591,3223,2913],3056],
-  ["TREND",[80,18,51,31,68,75,52],68],
-  ["UNICLASS",[62,43,74,89,85,41,49],48],
-  ["VERONEZ",[20,28,31,23,42,38,27],51],
-];
-
-const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul'];
-const comMeta = ADMS.filter(a=>a[2]>0);
-const totalMeta = comMeta.reduce((s,a)=>s+a[2],0);
-const boletosJul = ADMS.reduce((s,a)=>s+a[1][6],0);
-
-document.getElementById('kpis').innerHTML = `
-  <div class="kpi"><div class="val">${comMeta.length}</div><div class="lbl">ADMs com Meta</div></div>
-  <div class="kpi"><div class="val">${totalMeta.toLocaleString()}</div><div class="lbl">Vol. Imob Total</div></div>
-  <div class="kpi"><div class="val">${boletosJul.toLocaleString()}</div><div class="lbl">Boletos Julho</div></div>
-  <div class="kpi"><div class="val">${(boletosJul/totalMeta*100).toFixed(1)}%</div><div class="lbl">Atingimento Global</div></div>
-`;
-
-const metaMensal = MESES.map((_,i)=>{
-  const b = ADMS.reduce((s,a)=>s+a[1][i],0);
-  return totalMeta>0 ? (b/totalMeta*100) : 0;
-});
-
-new Chart(document.getElementById('chartAtingimento'),{
-  type:'bar',
-  data:{
-    labels:MESES,
-    datasets:[{
-      label:'% Atingimento',
-      data:metaMensal,
-      backgroundColor: metaMensal.map(v=>v>=100?'rgba(20,54,92,.85)':v>=80?'rgba(244,183,44,.85)':'rgba(197,34,31,.7)'),
-      borderColor: metaMensal.map(v=>v>=100?'#14365C':v>=80?'#F4B72C':'#C5221F'),
-      borderWidth:1,
-      borderRadius:6
-    }]
-  },
-  options:{
-    responsive:true,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw.toFixed(1)+'%'}}},
-    scales:{
-      y:{beginAtZero:true,ticks:{color:'#5E748C',callback:v=>v+'%'},grid:{color:'#DCE3EC'}},
-      x:{ticks:{color:'#5E748C'},grid:{display:false}}
-    }
-  }
-});
-
-const tbody = document.getElementById('tabela');
-const sorted = [...ADMS].sort((a,b)=>b[2]-a[2]||b[1][6]-a[1][6]);
-
-sorted.forEach((a,i)=>{
-  const [nome,meses,meta] = a;
-  const pctJul = meta>0 ? (meses[6]/meta*100) : 0;
-  const badge = pctJul>=100?'badge-good':pctJul>=50?'badge-warn':'badge-low';
-  const tr = document.createElement('tr');
-  tr.innerHTML = `
-    <td style="color:var(--muted)">${i+1}</td>
-    <td style="font-weight:600">${nome}</td>
-    <td class="num" style="font-weight:600;color:var(--navy)">${meta>0?meta.toLocaleString():'<span style=color:var(--muted)>—</span>'}</td>
-    ${meses.map((v,j)=>{
-      const p = meta>0?(v/meta*100):0;
-      return `<td class="num">${v>0?`<span style="font-weight:500">${v.toLocaleString()}</span>`:'<span style=color:var(--muted)>—</span>'}<br><small style=color:var(--muted)>${meta>0?p.toFixed(1)+'%':'—'}</small></td>`;
-    }).join('')}
-    <td class="num"><span class="meta-badge ${badge}">${pctJul.toFixed(1)}%</span></td>
-  `;
-  tbody.appendChild(tr);
-});
+const ADMS=[["(SEM ADMIN)",[4811,5230,6294,5566,5840,6111,6256],0],["AGORA CIA IMOBILIARIA",[1545,1441,1478,1523,1682,1585,1632],1028],["ALFA CITY ADMINISTRADORA DE IMOVEIS LTDA",[1,23,12,28,27,27,31],4242],["ALIANCA ASSESSORIA E ADMINISTRACAO DE CONDOMINIOS LTDA",[74,103,0,0,0,0,0],0],["ALUGA NEGOCIOS IMOBILIARIOS LTDA",[132,142,138,142,135,192,183],251],["AREA COMUM ADMINISTRACAO E SERVICOS",[454,456,462,454,449,496,450],541],["AZENHA EMPREENDIMENTOS IMOBILIARIOS",[5041,4587,5349,4605,4342,4872,4923],19353],["BONAADMINISTRADORA DE IMOVEIS LTDA",[474,1182,2531,3232,3197,2297,3411],7499],["BRIDGE LOCACOES IMOBILIARIAS LTDA",[185,218,185,214,244,219,199],565],["CASARAO IMOVEIS",[6460,5581,9197,7793,6167,7834,7312],8587],["CENTRAL DE IMOVEIS",[3238,2991,3528,3008,2993,3213,3105],3887],["COMPAGNA CONSULTORIA IMOBILIARIA",[2,4,6,3,5,7,4],4],["CONCEITO PREDIAL ADMINISTRACAO DE CONDOMINIOS",[328,238,368,290,378,291,420],241],["CONDOTTA IMOVEIS",[912,1012,979,970,860,918,875],931],["CONNECTA IMOBILIARIA LTDA",[54,57,47,35,35,35,38],0],["DAPPER EMPREENDIMENTOS IMOBILIARIOS LTDA",[187,960,1733,928,1001,983,881],1175],["DOCA IMOVEIS",[0,0,0,0,2,0,0],0],["DOMINIO IMOVEIS LTDA",[304,286,316,309,324,361,329],3480],["FORTES IMOVEIS LTDA",[0,0,0,26,12,33,34],65],["G3 ASSESSORIA IMOBILIARIA",[2932,2964,2909,2916,2809,773,699],2743],["GARCIA IMOVEIS",[1987,1647,1994,1809,1752,1742,1801],1757],["GRAMADO ADMINISTRADORA DE IMOVEIS LTDA",[806,261,1506,186,952,1402,839],1111],["IMOBILIAR INFORMATICA",[62,66,80,83,75,111,71],0],["IMOBILIARIA DIMOVEL LTDA",[0,0,0,13,430,513,570],571],["IMOBILIARIA ROSPIDE LTDA",[0,0,1802,2035,2098,2051,2883],2830],["IMOBILIARIA YARA LTDA",[92,120,109,117,100,65,60],863],["INVICTA NEGOCIOS IMOBILIARIOS",[0,23,403,313,325,266,269],218],["JS ADMINISTRADORA DE CONDOMINIO LTDA",[0,0,69,65,67,66,69],0],["LOCATTO ASSESSORIA IMOBILIARIA LTDA",[0,0,0,0,0,0,75],0],["LUAGGE IMOVEIS LTDA",[2368,2370,3560,3658,2775,3578,2924],2003],["MACHADO E SILVEIRA NEGOCIOS IMOBILIARIOS LTDA",[8,12,15,10,2,2,2],1430],["NEW IMOVEIS LTDA",[491,551,539,510,467,452,457],715],["PERFIL IMOVEIS",[0,0,0,0,0,0,43],0],["PROPER  CONSULTORIA IMOBILIARIA",[959,925,1052,1068,1023,1078,1092],1008],["REAL MAP IMOBILIARIA LTDA",[0,0,0,0,0,14,34],127],["REQUINTE NEGOCIOS IMOBILIARIOS LTDA",[2331,2371,2615,2514,2503,2488,2627],2761],["RESCHKE  VARGAS ADVOGADOS",[168,160,153,163,189,178,191],0],["SAUER  SAUER GESTAO E INTERMEDIACOES DE IMOVEIS LTDA",[156,146,133,124,136,154,147],240],["SERRA  LAR IMOVEIS",[147,164,136,146,155,158,147],1241],["SILVEIRA LOCACAO E VENDA DE IMOVEIS LTDA",[1204,1191,1250,1248,1064,1079,869],1430],["SOMMA ALUGUEIS  CONDOMINIOS LTDA",[1069,1039,1195,1076,952,1146,1201],2279],["SP IMOBILIARIA",[2158,3153,4200,3227,3090,3106,3133],4604],["STEFANI IMOVEIS LTDA",[2762,2900,2944,2986,2591,3223,2913],3056],["TREND LOCACOES E INVESTIMENTOS IMOBILIARIOS LTDA",[80,18,51,31,68,75,52],68],["UNICLASS EMPREENDIMENTOS IMOBILIARIOS LTDA",[62,43,74,89,85,41,49],48],["VERONEZ ASSESSORIA IMOBILIARIA",[20,28,31,23,42,38,27],51]];
+const MESES=["Jan","Fev","Mar","Abr","Mai","Jun","Jul"];
+const cM=ADMS.filter(a=>a[2]>0);
+const tM=cM.reduce((s,a)=>s+a[2],0);
+const bJ=ADMS.reduce((s,a)=>s+a[1][6],0);
+document.getElementById("kpis").innerHTML='<div class=kpi><div class=val>'+cM.length+'</div><div class=lbl>ADMs com Meta</div></div><div class=kpi><div class=val>'+tM.toLocaleString()+'</div><div class=lbl>Vol. Imob Total</div></div><div class=kpi><div class=val>'+bJ.toLocaleString()+'</div><div class=lbl>Boletos Julho</div></div><div class=kpi><div class=val>'+(tM>0?(bJ/tM*100).toFixed(1):'0')+'%</div><div class=lbl>Atingimento Global</div></div>';
+const mM=MESES.map((_,i)=>{const b=ADMS.reduce((s,a)=>s+a[1][i],0);return tM>0?(b/tM*100):0});
+new Chart(document.getElementById("chartAtingimento"),{type:"bar",data:{labels:MESES,datasets:[{label:"% Atingimento",data:mM,backgroundColor:mM.map(v=>v>=100?"rgba(20,54,92,.85)":v>=80?"rgba(244,183,44,.85)":"rgba(197,34,31,.7)"),borderColor:mM.map(v=>v>=100?"#14365C":v>=80?"#F4B72C":"#C5221F"),borderWidth:1,borderRadius:6}]},options:{responsive:!0,plugins:{legend:{display:!1},tooltip:{callbacks:{label:c=>c.raw.toFixed(1)+"%"}}},scales:{y:{beginAtZero:!0,ticks:{color:"#5E748C",callback:v=>v+"%"},grid:{color:"#DCE3EC"}},x:{ticks:{color:"#5E748C"},grid:{display:!1}}}});
+const tb=document.getElementById("tabela");
+const sx=[...ADMS].sort((a,b)=>b[2]-a[2]||b[1][6]-a[1][6]);
+sx.forEach((a,i)=>{const[n,m,mt]=a;const pj=mt>0?(m[6]/mt*100):0;const bg=pj>=100?"badge-good":pj>=50?"badge-warn":"badge-low";const tr=document.createElement("tr");tr.innerHTML='<td style=color:var(--muted)>'+(i+1)+'</td><td style=font-weight:600>'+n+'</td><td class=num style="font-weight:600;color:var(--navy)">'+(mt>0?mt.toLocaleString():'<span style=color:var(--muted)>—</span>')+'</td>'+m.map((v,j)=>{const p=mt>0?(v/mt*100):0;return'<td class=num>'+(v>0?'<span style=font-weight:500>'+v.toLocaleString()+'</span>':'<span style=color:var(--muted)>—</span>')+'<br><small style=color:var(--muted)>'+(mt>0?p.toFixed(1)+"%":"—")+'</small></td>'}).join("")+'<td class=num><span class="meta-badge '+bg+'">'+pj.toFixed(1)+'%</span></td>';tb.appendChild(tr)});
 </script>
 </body>
 </html>
