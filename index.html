@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imobiliar — Atingimento da Meta | CondoConta</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d1117;color:#e0e0e0;padding:20px}
+h1{font-size:22px;text-align:center;margin-bottom:4px}
+h1 span{color:#1abc9c}
+.sub{text-align:center;color:#8b949e;margin-bottom:20px;font-size:13px}
+.kpi-row{display:flex;gap:16px;flex-wrap:wrap;max-width:1400px;margin:0 auto 20px}
+.kpi{flex:1;min-width:180px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;text-align:center}
+.kpi .val{font-size:28px;font-weight:700;color:#1abc9c}
+.kpi .lbl{font-size:12px;color:#8b949e;margin-top:4px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1400px;margin:0 auto}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px}
+.card.full{grid-column:1/-1}
+.card h2{font-size:14px;color:#1abc9c;margin-bottom:12px}
+.chart-wrap{position:relative;width:100%;max-height:380px}
+.chart-wrap canvas{width:100%!important}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{text-align:left;padding:6px 4px;border-bottom:1px solid #30363d;color:#8b949e;font-weight:500;position:sticky;top:0;background:#161b22;z-index:1}
+td{padding:5px 4px;border-bottom:1px solid #21262d;white-space:nowrap}
+tr:hover td{background:#1c2333}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{max-height:500px;overflow:auto}
+.bar-wrap{display:inline-block;width:60px;height:7px;background:#21262d;border-radius:4px;vertical-align:middle;margin-right:6px}
+.bar-fill{height:100%;border-radius:4px}
+.green{background:#1abc9c}.yellow{background:#f1c40f}.red{background:#e74c3c}
+.footer{text-align:center;color:#8b949e;margin-top:20px;font-size:11px}
+.over{color:#1abc9c;font-weight:700}
+</style>
+</head>
+<body>
+
+<h1>🎯 <span>Imobiliar</span> — Atingimento da Meta (Vol. Imob)</h1>
+<p class="sub">Vol. Imob = 100% da meta · Boletos mensais = % atingido · 46 administradoras</p>
+
+<div class="kpi-row" id="kpis"></div>
+
+<div class="grid">
+  <div class="card full">
+    <h2>📈 % de Atingimento Mensal (Boletos / Vol. Imob)</h2>
+    <div class="chart-wrap"><canvas id="chartAtingimento"></canvas></div>
+  </div>
+  <div class="card full">
+    <h2>📋 Detalhamento por ADM — Meta vs Realizado (Julho/2026)</h2>
+    <div class="scroll">
+    <table>
+      <thead><tr>
+        <th>#</th><th>ADM</th><th class="num">Vol. Imob (Meta)</th>
+        <th class="num">Jan</th><th class="num">Fev</th><th class="num">Mar</th>
+        <th class="num">Abr</th><th class="num">Mai</th><th class="num">Jun</th>
+        <th class="num">Jul</th>
+        <th class="num">Ating. Jul</th>
+      </tr></thead>
+      <tbody id="tabela"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<p class="footer">Vol. Imob = 100% da meta | % = Boletos do mês ÷ Vol. Imob | CondoConta · POD ERP</p>
+
+<script>
+// Dados: nome, [jan,fev,mar,abr,mai,jun,jul], volImob (meta)
+const ADMS = [
+  ["(SEM ADMIN)",[4813,5231,6295,5567,5841,6113,6259],0],
+  ["AGORA CIA IMOBILIARIA",[1545,1441,1478,1523,1682,1585,1632],1028],
+  ["ALFA CITY",[1,23,12,28,27,27,31],4242],
+  ["ALIANCA",[74,103,0,0,0,0,0],0],
+  ["ALUGA NEGOCIOS",[132,142,138,142,135,192,183],251],
+  ["AREA COMUM",[454,456,462,454,449,496,450],541],
+  ["AZENHA",[5041,4587,5349,4605,4342,4872,4923],19353],
+  ["BONA",[474,1182,2531,3232,3197,2297,3411],7499],
+  ["BRIDGE",[185,218,185,214,244,219,199],565],
+  ["CASARAO IMOVEIS",[6460,5581,9197,7793,6167,7834,7312],8587],
+  ["CENTRAL DE IMOVEIS",[3238,2991,3528,3008,2993,3213,3105],3887],
+  ["COMPAGNA",[2,4,6,3,5,7,4],4],
+  ["CONCEITO PREDIAL",[328,238,368,290,378,291,420],241],
+  ["CONDOTTA IMOVEIS",[912,1012,979,970,860,918,875],931],
+  ["CONNECTA",[54,57,47,35,35,35,38],0],
+  ["DAPPER",[187,960,1733,928,1001,983,881],1175],
+  ["DOCA IMOVEIS",[0,0,0,0,2,0,0],0],
+  ["DOMINIO IMOVEIS",[304,286,316,309,324,361,329],3480],
+  ["FORTES IMOVEIS",[0,0,0,26,12,33,34],65],
+  ["G3 ASSESSORIA",[2932,2964,2909,2916,2809,773,699],2743],
+  ["GARCIA IMOVEIS",[1987,1647,1994,1809,1752,1742,1801],1757],
+  ["GRAMADO",[806,261,1506,186,952,1402,839],1111],
+  ["IMOBILIAR INFORMATICA",[62,66,80,83,75,111,71],0],
+  ["DIMOVEL",[0,0,0,13,430,513,570],571],
+  ["ROSPIDE",[0,0,1802,2035,2098,2051,2883],2830],
+  ["YARA",[92,120,109,117,100,65,60],863],
+  ["INVICTA",[0,23,403,313,325,266,269],218],
+  ["JS ADMINISTRADORA",[0,0,69,65,67,66,69],0],
+  ["LOCATTO",[0,0,0,0,0,0,75],0],
+  ["LUAGGE IMOVEIS",[2368,2370,3560,3658,2775,3578,2924],2003],
+  ["MACHADO E SILVEIRA",[8,12,15,10,2,2,2],26],
+  ["NEW IMOVEIS",[491,551,539,510,467,452,457],715],
+  ["PERFIL IMOVEIS",[0,0,0,0,0,0,43],0],
+  ["PROPER",[959,925,1052,1068,1023,1078,1092],1008],
+  ["REAL MAP",[0,0,0,0,0,13,33],127],
+  ["REQUINTE",[2331,2371,2615,2514,2503,2488,2627],2761],
+  ["RESCHKE VARGAS",[168,160,153,163,189,178,191],0],
+  ["SAUER & SAUER",[156,146,133,124,136,154,147],240],
+  ["SERRA LAR",[147,164,136,146,155,158,147],1241],
+  ["SILVEIRA LOCACAO",[1202,1190,1249,1247,1063,1078,867],1430],
+  ["SOMMA",[1069,1039,1195,1076,952,1146,1201],2279],
+  ["SP IMOBILIARIA",[2158,3153,4200,3227,3090,3106,3133],4604],
+  ["STEFANI IMOVEIS",[2762,2900,2944,2986,2591,3223,2913],3056],
+  ["TREND",[80,18,51,31,68,75,52],68],
+  ["UNICLASS",[62,43,74,89,85,41,49],48],
+  ["VERONEZ",[20,28,31,23,42,38,27],51],
+];
+
+const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul'];
+const comMeta = ADMS.filter(a=>a[2]>0);
+const totalMeta = comMeta.reduce((s,a)=>s+a[2],0);
+const boletosJul = ADMS.reduce((s,a)=>s+a[1][6],0);
+
+// KPIs
+document.getElementById('kpis').innerHTML = `
+  <div class="kpi"><div class="val">${comMeta.length}</div><div class="lbl">ADMs com Meta</div></div>
+  <div class="kpi"><div class="val">${totalMeta.toLocaleString()}</div><div class="lbl">Vol. Imob Total (Meta)</div></div>
+  <div class="kpi"><div class="val">${boletosJul.toLocaleString()}</div><div class="lbl">Boletos Julho</div></div>
+  <div class="kpi"><div class="val">${(boletosJul/totalMeta*100).toFixed(1)}%</div><div class="lbl">Atingimento Global Jul</div></div>
+`;
+
+// Gráfico: % atingimento mensal agregado
+const metaMensal = MESES.map((_,i)=>{
+  const b = ADMS.reduce((s,a)=>s+a[1][i],0);
+  return totalMeta>0 ? (b/totalMeta*100) : 0;
+});
+
+new Chart(document.getElementById('chartAtingimento'),{
+  type:'bar',
+  data:{
+    labels:MESES,
+    datasets:[{
+      label:'% Atingimento (Boletos/Vol.Imob)',
+      data:metaMensal,
+      backgroundColor: metaMensal.map(v=>v>=100?'rgba(26,188,156,0.7)':v>=80?'rgba(241,196,15,0.7)':'rgba(231,76,60,0.7)'),
+      borderColor: metaMensal.map(v=>v>=100?'#1abc9c':v>=80?'#f1c40f':'#e74c3c'),
+      borderWidth:1,
+      borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.raw.toFixed(1)+'%'}}
+    },
+    scales:{
+      y:{beginAtZero:true, ticks:{color:'#8b949e',callback:v=>v+'%'}, grid:{color:'#21262d'}},
+      x:{ticks:{color:'#8b949e'},grid:{display:false}}
+    }
+  }
+});
+
+// Tabela
+const tbody = document.getElementById('tabela');
+const sorted = [...ADMS].sort((a,b)=>b[2]-a[2]||b[1][6]-a[1][6]);
+
+sorted.forEach((a,i)=>{
+  const [nome,meses,meta] = a;
+  const pctJul = meta>0 ? (meses[6]/meta*100) : 0;
+  const color = pctJul>=100?'#1abc9c':pctJul>=50?'#f1c40f':'#e74c3c';
+  const barW = Math.min(pctJul,150);
+  
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${i+1}</td>
+    <td>${nome}</td>
+    <td class="num" style="font-weight:600">${meta>0?meta.toLocaleString():'<span style=color:#484f58>-</span>'}</td>
+    ${meses.map((v,j)=>{
+      const p = meta>0?(v/meta*100):0;
+      const c = p>=100?'color:#1abc9c;font-weight:700':p>=50?'color:#f1c40f':'';
+      return `<td class="num" style="${c}">${v>0?v.toLocaleString():'<span style=color:#484f58>-</span>'}<br><small style=color:#8b949e>${meta>0?p.toFixed(1)+'%':'—'}</small></td>`;
+    }).join('')}
+    <td class="num" style="color:${color};font-weight:700">${pctJul.toFixed(1)}%</td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
