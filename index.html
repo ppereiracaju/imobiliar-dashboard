@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IMOBILIAR — Emissões | CondoConta</title>
+<title>Imobiliar — Atingimento da Meta | CondoConta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
 :root{--paper:#F4F6FA;--ink:#0C2440;--navy:#14365C;--navy-deep:#0A2138;--navy-mid:#1E4B7A;--gold:#F4B72C;--gold-deep:#C98F0C;--muted:#5E748C;--line:#DCE3EC;--line-2:#EAEFF5;--card:#FFFFFF}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
-.sheet{max-width:1400px;margin:0 auto}
+.sheet{max-width:1300px;margin:0 auto}
 header{background:var(--navy-deep);padding:30px 44px;text-align:center}
 header .logo{font-family:'Sora',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
 header h1{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#fff}
@@ -20,73 +20,66 @@ header h1 span{color:var(--gold)}
 header .sub{font-size:13px;color:rgba(255,255,255,.55)}
 .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;padding:24px 44px;background:var(--card);border-bottom:1px solid var(--line)}
 .kpi{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center}
-.kpi .val{font-family:'Sora',sans-serif;font-size:24px;font-weight:800;color:var(--navy)}
+.kpi .val{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:var(--navy)}
 .kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
 .sec{background:var(--card);padding:30px 44px;border-bottom:1px solid var(--line)}
 .sec h2{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px}
 .chart-wrap{position:relative;width:100%;max-height:350px}
 .chart-wrap canvas{width:100%!important}
-table{width:100%;border-collapse:collapse;font-size:10.5px;font-family:'IBM Plex Mono',monospace}
-th{text-align:left;padding:8px 5px;border-bottom:2px solid var(--navy);color:var(--navy);font-family:'Inter',sans-serif;font-weight:600;font-size:9px;text-transform:uppercase;letter-spacing:.06em;position:sticky;top:0;background:var(--card);z-index:1}
-td{padding:6px 5px;border-bottom:1px solid var(--line-2)}
+table{width:100%;border-collapse:collapse;font-size:11px;font-family:'IBM Plex Mono',monospace}
+th{text-align:left;padding:10px 6px;border-bottom:2px solid var(--navy);color:var(--navy);font-family:'Inter',sans-serif;font-weight:600;font-size:9px;text-transform:uppercase;letter-spacing:.08em;position:sticky;top:0;background:var(--card);z-index:1}
+td{padding:7px 6px;border-bottom:1px solid var(--line-2)}
 tr:hover td{background:var(--paper)}
 .num{text-align:right;font-variant-numeric:tabular-nums}
-.scroll{max-height:600px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+.scroll{max-height:550px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;font-family:'Inter',sans-serif}
+.bg{background:#E6F4EA;color:#137333}.bw{background:#FEF7E0;color:#B06000}.br{background:#FCE8E6;color:#C5221F}
 footer{background:var(--navy-deep);padding:24px 44px;text-align:center;font-size:11px;color:rgba(255,255,255,.45)}
 footer span{color:var(--gold)}
 .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-deep);margin-bottom:6px}
 .rule-gold{width:46px;height:3px;background:var(--gold);margin-bottom:16px}
-.city{font-family:'Inter',sans-serif;font-size:9px;color:var(--muted);font-weight:400}
 @media(max-width:768px){.kpi-grid{grid-template-columns:repeat(2,1fr);padding:16px}.sec{padding:20px}header{padding:24px 20px}header h1{font-size:20px}}
 </style>
 </head>
 <body>
 <div class="sheet">
-<header><div class="logo">CondoConta · POD ERP</div><h1>Ranking de Emissões · <span>IMOBILIAR</span></h1><p class="sub">ADMs com volume >100 boletos · Fev a Set/2026 · 45 ADMs · Atualizado 09/09/2026 16:51 BRT</p></header>
+<header><div class="logo">CondoConta · POD ERP</div><h1>Atingimento da Meta · <span>Imobiliar</span></h1><p class="sub">Vol. Imob = 100% · Boletins = % atingido · Fev a Set/2026 · 49 ADMs · Atualizado 10/09/2026 09:00 BRT</p></header>
 <div class="kpi-grid" id="kpis"></div>
-<div class="sec"><div class="eyebrow">Top 20 ADMs</div><h2>Volume Mensal de Emissões (Fev-Set/2026)</h2><div class="rule-gold"></div><div class="chart-wrap"><canvas id="chartTop"></canvas></div></div>
-<div class="sec"><div class="eyebrow">Ranking Completo</div><h2>Todas as ADMs — Ordenadas por Volume Total</h2><div class="rule-gold"></div><div class="scroll"><table><thead><tr><th>#</th><th>Administradora</th><th>Cidade/UF</th><th class="num">Total</th><th class="num">Fev</th><th class="num">Mar</th><th class="num">Abr</th><th class="num">Mai</th><th class="num">Jun</th><th class="num">Jul</th><th class="num">Ago</th><th class="num">Set</th></tr></thead><tbody id="tabela"></tbody></table></div></div>
-<footer><span>CondoConta</span> · condoconta.com.br · POD ERP · 09/09/2026 16:51 BRT · Fonte: Databricks (ds_emissoes_erp)</footer>
+<div class="sec"><div class="eyebrow">Evolução Mensal</div><h2>% de Atingimento (Boletos / Vol. Imob)</h2><div class="rule-gold"></div><div class="chart-wrap"><canvas id="chartAtingimento"></canvas></div></div>
+<div class="sec"><div class="eyebrow">Detalhamento por ADM</div><h2>Meta vs Realizado — Setembro/2026</h2><div class="rule-gold"></div><div class="scroll"><table><thead><tr><th>#</th><th>Administradora</th><th class="num">Meta</th><th class="num">Fev</th><th class="num">Mar</th><th class="num">Abr</th><th class="num">Mai</th><th class="num">Jun</th><th class="num">Jul</th><th class="num">Ago</th><th class="num">Set</th><th class="num">Ating. Set</th></tr></thead><tbody id="tabela"></tbody></table></div></div>
+<footer><span>CondoConta</span> · condoconta.com.br · POD ERP · 10/09/2026 09:00 BRT · Fonte: Databricks (ds_emissoes_erp)</footer>
 </div>
 <script>
-var ADMS = [{"n": "CASARAO IMOVEIS", "m": [5938, 9696, 8249, 6537, 8268, 7716, 7046, 1112], "v": 54562, "city": "Pelotas/RS"}, {"n": "AZENHA EMPREENDIMENTOS IMOBILIARIOS", "m": [4932, 5672, 4858, 4738, 5212, 5243, 4679, 272], "v": 35606, "city": "Porto Alegre/RS"}, {"n": "SP IMOBILIARIA", "m": [3819, 4964, 3895, 3747, 3790, 3812, 4058, 142], "v": 28227, "city": "Canela/RS"}, {"n": "CENTRAL DE IMOVEIS", "m": [3199, 3744, 3217, 3193, 3422, 3299, 3275, 183], "v": 23532, "city": "PORTO ALEGRE/RS"}, {"n": "STEFANI IMOVEIS LTDA", "m": [3314, 3347, 3390, 2997, 3652, 3316, 3211, 141], "v": 23368, "city": "Porto Alegre/RS"}, {"n": "LUAGGE IMOVEIS LTDA", "m": [2462, 3651, 3755, 2850, 3683, 3021, 2700, 539], "v": 22661, "city": "PORTO ALEGRE/RS"}, {"n": "BONAADMINISTRADORA DE IMOVEIS LTDA", "m": [1341, 2702, 3425, 3378, 2450, 3624, 3148, 461], "v": 20529, "city": "-"}, {"n": "REQUINTE NEGOCIOS IMOBILIARIOS LTDA", "m": [2490, 2739, 2616, 2619, 2605, 2764, 2642, 184], "v": 18659, "city": "Pelotas/RS"}, {"n": "G3 ASSESSORIA IMOBILIARIA", "m": [3163, 3117, 3108, 2996, 919, 844, 686, 74], "v": 14907, "city": "Pelotas/RS"}, {"n": "IMOBILIARIA ROSPIDE LTDA", "m": [0, 2011, 2264, 2333, 2324, 3151, 2377, 176], "v": 14636, "city": "-"}, {"n": "GARCIA IMOVEIS", "m": [1797, 2161, 2007, 1900, 1919, 1972, 1962, 232], "v": 13950, "city": "Porto Alegre/RS"}, {"n": "AGORA CIA IMOBILIARIA", "m": [1516, 1550, 1595, 1758, 1659, 1702, 1720, 182], "v": 11682, "city": "Canoas/RS"}, {"n": "DAPPER EMPREENDIMENTOS IMOBILIARIOS LTDA", "m": [1290, 2372, 1273, 1342, 1347, 1246, 1319, 88], "v": 10277, "city": "Novo Hamburgo/RS"}, {"n": "SILVEIRA LOCACAO E VENDA DE IMOVEIS LTDA", "m": [1376, 1433, 1427, 1240, 1247, 1054, 1186, 101], "v": 9064, "city": "PORTO ALEGRE/RS"}, {"n": "LINDOMAR ZIMMER  CIA LTDA", "m": [1333, 1255, 1264, 1247, 1212, 1287, 1316, 56], "v": 8970, "city": "-"}, {"n": "SOMMA ALUGUEIS  CONDOMINIOS LTDA", "m": [1128, 1287, 1170, 1053, 1249, 1308, 1171, 106], "v": 8472, "city": "-"}, {"n": "PROPER  CONSULTORIA IMOBILIARIA", "m": [1012, 1145, 1160, 1111, 1167, 1180, 1166, 91], "v": 8032, "city": "-"}, {"n": "CONDOTTA IMOVEIS", "m": [1167, 1150, 1128, 1010, 1070, 1028, 1015, 107], "v": 7675, "city": "Porto Alegre/RS"}, {"n": "GRAMADO ADMINISTRADORA DE IMOVEIS LTDA", "m": [269, 1732, 197, 1090, 1646, 987, 1018, 65], "v": 7004, "city": "-"}, {"n": "NEW IMOVEIS LTDA", "m": [596, 585, 551, 509, 496, 504, 484, 16], "v": 3741, "city": "Portão/RS"}, {"n": "GUARIDA SERVICOS IMOBILIARIOS LTDA", "m": [413, 558, 413, 513, 516, 684, 490, 0], "v": 3587, "city": "Porto Alegre/RS"}, {"n": "AREA COMUM ADMINISTRACAO E SERVICOS", "m": [486, 492, 483, 478, 525, 479, 475, 0], "v": 3418, "city": "Porto Alegre/RS"}, {"n": "IMOBILIARIA DIMOVEL LTDA", "m": [0, 0, 13, 613, 700, 760, 752, 73], "v": 2911, "city": "-"}, {"n": "DOMINIO IMOVEIS LTDA", "m": [324, 358, 350, 373, 406, 377, 364, 74], "v": 2626, "city": "Porto Alegre/RS"}, {"n": "INVICTA NEGOCIOS IMOBILIARIOS", "m": [24, 507, 372, 387, 334, 338, 388, 52], "v": 2402, "city": "-"}, {"n": "CONCEITO PREDIAL ADMINISTRACAO DE CONDOMINIOS", "m": [241, 371, 293, 381, 294, 423, 317, 75], "v": 2395, "city": "Viamão/RS"}, {"n": "BRIDGE LOCACOES IMOBILIARIAS LTDA", "m": [274, 276, 260, 327, 286, 295, 295, 114], "v": 2127, "city": "Porto Alegre/RS"}, {"n": "ALUGA NEGOCIOS IMOBILIARIOS LTDA", "m": [231, 223, 229, 221, 278, 268, 247, 2], "v": 1699, "city": "Porto Alegre/RS"}, {"n": "RESCHKE  VARGAS ADVOGADOS", "m": [161, 153, 163, 190, 181, 198, 185, 113], "v": 1344, "city": "-"}, {"n": "SERRA  LAR IMOVEIS", "m": [205, 175, 186, 194, 197, 187, 188, 0], "v": 1332, "city": "-"}, {"n": "SAUER  SAUER GESTAO E INTERMEDIACOES DE IMOVEIS LTDA", "m": [182, 167, 160, 171, 191, 188, 166, 27], "v": 1252, "city": "-"}, {"n": "IMOBILIAR INFORMATICA", "m": [139, 150, 160, 145, 182, 156, 163, 126], "v": 1221, "city": "Porto Alegre/RS"}, {"n": "IMOBILIARIA YARA LTDA", "m": [148, 130, 128, 109, 82, 72, 73, 56], "v": 798, "city": "PORTO ALEGRE/RS"}, {"n": "LOCATTO ASSESSORIA IMOBILIARIA LTDA", "m": [0, 0, 0, 0, 0, 96, 555, 6], "v": 657, "city": "-"}, {"n": "ALFA CITY ADMINISTRADORA DE IMOVEIS LTDA", "m": [37, 37, 87, 61, 62, 98, 176, 23], "v": 581, "city": "Porto Alegre/RS"}, {"n": "TREND LOCACOES E INVESTIMENTOS IMOBILIARIOS LTDA", "m": [19, 77, 56, 90, 122, 78, 89, 9], "v": 540, "city": "Porto Alegre/RS"}, {"n": "UNICLASS EMPREENDIMENTOS IMOBILIARIOS LTDA", "m": [44, 81, 94, 95, 44, 52, 26, 2], "v": 438, "city": "CANOAS/RS"}, {"n": "VERONEZ ASSESSORIA IMOBILIARIA", "m": [44, 49, 45, 68, 61, 59, 78, 11], "v": 415, "city": "Porto Alegre/RS"}, {"n": "PERFIL IMOVEIS", "m": [0, 0, 0, 0, 0, 160, 194, 17], "v": 371, "city": "-"}, {"n": "FORTES IMOVEIS LTDA", "m": [0, 0, 59, 23, 68, 70, 139, 5], "v": 364, "city": "-"}, {"n": "REAL MAP IMOBILIARIA LTDA", "m": [0, 0, 0, 0, 30, 79, 118, 83], "v": 310, "city": "-"}, {"n": "CONNECTA IMOBILIARIA LTDA", "m": [57, 47, 36, 40, 38, 42, 41, 8], "v": 309, "city": "Porto Alegre/RS"}, {"n": "IMOVEIS CREDITO REAL", "m": [0, 130, 0, 88, 23, 23, 0, 23], "v": 287, "city": "-"}, {"n": "PREDIAL LEINDECKER LTDA", "m": [0, 0, 50, 1, 56, 25, 47, 48], "v": 227, "city": "-"}, {"n": "ALIANCA ASSESSORIA E ADMINISTRACAO DE CONDOMINIOS LTDA", "m": [123, 0, 0, 0, 0, 0, 0, 0], "v": 123, "city": "-"}];
+var ADMS = [{"n": "AGORA CIA IMOBILIARIA", "m": [1516, 1550, 1595, 1758, 1659, 1702, 1720, 225], "v": 1028}, {"n": "ALFA CITY ADMINISTRADORA DE IMOVEIS LTDA", "m": [37, 37, 87, 61, 62, 98, 176, 23], "v": 4242}, {"n": "ALIANCA ASSESSORIA E ADMINISTRACAO DE CONDOMINIOS LTDA", "m": [123, 0, 0, 0, 0, 0, 0, 0], "v": 0}, {"n": "ALUGA NEGOCIOS IMOBILIARIOS LTDA", "m": [231, 223, 229, 221, 278, 268, 247, 2], "v": 251}, {"n": "AREA COMUM ADMINISTRACAO E SERVICOS", "m": [486, 492, 483, 478, 525, 479, 475, 0], "v": 541}, {"n": "AZENHA EMPREENDIMENTOS IMOBILIARIOS", "m": [4932, 5672, 4858, 4738, 5212, 5243, 4679, 275], "v": 19353}, {"n": "BONAADMINISTRADORA DE IMOVEIS LTDA", "m": [1341, 2702, 3425, 3378, 2450, 3624, 3148, 471], "v": 7499}, {"n": "BRIDGE LOCACOES IMOBILIARIAS LTDA", "m": [274, 276, 260, 327, 286, 295, 295, 117], "v": 565}, {"n": "CARFATI NEGOCIOS IMOBILIARIOS LTDA", "m": [0, 0, 0, 0, 0, 0, 50, 1], "v": 55}, {"n": "CASARAO IMOVEIS", "m": [5938, 9696, 8249, 6537, 8268, 7716, 7046, 1124], "v": 8587}, {"n": "CENTRAL DE IMOVEIS", "m": [3199, 3744, 3217, 3193, 3422, 3299, 3275, 212], "v": 3887}, {"n": "COMPAGNA CONSULTORIA IMOBILIARIA", "m": [5, 7, 4, 7, 9, 7, 0, 10], "v": 4}, {"n": "CONCEITO PREDIAL ADMINISTRACAO DE CONDOMINIOS", "m": [241, 371, 293, 381, 294, 423, 317, 75], "v": 241}, {"n": "CONDOTTA IMOVEIS", "m": [1167, 1150, 1128, 1010, 1070, 1028, 1015, 112], "v": 931}, {"n": "CONNECTA IMOBILIARIA LTDA", "m": [57, 47, 36, 40, 38, 42, 41, 8], "v": 47}, {"n": "DAPPER EMPREENDIMENTOS IMOBILIARIOS LTDA", "m": [1290, 2372, 1273, 1342, 1347, 1246, 1319, 101], "v": 1175}, {"n": "DOMINIO IMOVEIS LTDA", "m": [324, 358, 350, 373, 406, 377, 364, 76], "v": 3480}, {"n": "FORTES IMOVEIS LTDA", "m": [0, 0, 59, 23, 68, 70, 139, 5], "v": 65}, {"n": "G3 ASSESSORIA IMOBILIARIA", "m": [3163, 3117, 3108, 2996, 919, 844, 686, 78], "v": 2743}, {"n": "GALLINA NEGOCIOS IMOBILIARIOS LTDA", "m": [0, 0, 0, 0, 0, 0, 4, 1], "v": 350}, {"n": "GARCIA IMOVEIS", "m": [1797, 2161, 2007, 1900, 1919, 1972, 1962, 234], "v": 1757}, {"n": "GRAMADO ADMINISTRADORA DE IMOVEIS LTDA", "m": [269, 1732, 197, 1090, 1646, 987, 1018, 70], "v": 1111}, {"n": "IMOBILIAR INFORMATICA", "m": [139, 150, 160, 145, 182, 156, 163, 126], "v": 0}, {"n": "IMOBILIARIA DIMOVEL LTDA", "m": [0, 0, 13, 613, 700, 760, 752, 78], "v": 571}, {"n": "IMOBILIARIA ROSPIDE LTDA", "m": [0, 2011, 2264, 2333, 2324, 3151, 2377, 186], "v": 2830}, {"n": "IMOBILIARIA YARA LTDA", "m": [148, 130, 128, 109, 82, 72, 73, 57], "v": 863}, {"n": "INVICTA NEGOCIOS IMOBILIARIOS", "m": [24, 507, 372, 387, 334, 338, 388, 59], "v": 218}, {"n": "LOCATTO ASSESSORIA IMOBILIARIA LTDA", "m": [0, 0, 0, 0, 0, 96, 555, 7], "v": 787}, {"n": "LUAGGE IMOVEIS LTDA", "m": [2462, 3651, 3755, 2850, 3683, 3021, 2700, 554], "v": 2003}, {"n": "MACHADO E SILVEIRA NEGOCIOS IMOBILIARIOS LTDA", "m": [23, 28, 26, 5, 3, 3, 4, 0], "v": 26}, {"n": "NEW IMOVEIS LTDA", "m": [596, 585, 551, 509, 496, 504, 484, 17], "v": 715}, {"n": "PERFIL IMOVEIS", "m": [0, 0, 0, 0, 0, 160, 194, 19], "v": 165}, {"n": "PREDIAL LEINDECKER LTDA", "m": [0, 0, 50, 1, 56, 25, 47, 48], "v": 10500}, {"n": "PROPER  CONSULTORIA IMOBILIARIA", "m": [1012, 1145, 1160, 1111, 1167, 1180, 1166, 92], "v": 1008}, {"n": "REAL MAP IMOBILIARIA LTDA", "m": [0, 0, 0, 0, 30, 79, 118, 83], "v": 127}, {"n": "REQUINTE NEGOCIOS IMOBILIARIOS LTDA", "m": [2490, 2739, 2616, 2619, 2605, 2764, 2642, 187], "v": 2761}, {"n": "RESCHKE  VARGAS ADVOGADOS", "m": [161, 153, 163, 190, 181, 198, 185, 113], "v": 0}, {"n": "SAUER  SAUER GESTAO E INTERMEDIACOES DE IMOVEIS LTDA", "m": [182, 167, 160, 171, 191, 188, 166, 27], "v": 240}, {"n": "SERRA  LAR IMOVEIS", "m": [205, 175, 186, 194, 197, 187, 188, 0], "v": 1241}, {"n": "SILVEIRA LOCACAO E VENDA DE IMOVEIS LTDA", "m": [1376, 1433, 1427, 1240, 1247, 1054, 1186, 108], "v": 1430}, {"n": "SOMMA ALUGUEIS  CONDOMINIOS LTDA", "m": [1128, 1287, 1170, 1053, 1249, 1308, 1171, 107], "v": 2279}, {"n": "SP IMOBILIARIA", "m": [3819, 4964, 3895, 3747, 3790, 3812, 4058, 152], "v": 4604}, {"n": "STEFANI IMOVEIS LTDA", "m": [3314, 3347, 3390, 2997, 3652, 3316, 3211, 144], "v": 3056}, {"n": "TREND LOCACOES E INVESTIMENTOS IMOBILIARIOS LTDA", "m": [19, 77, 56, 90, 122, 78, 89, 9], "v": 68}, {"n": "UNICLASS EMPREENDIMENTOS IMOBILIARIOS LTDA", "m": [44, 81, 94, 95, 44, 52, 26, 2], "v": 48}, {"n": "VERONEZ ASSESSORIA IMOBILIARIA", "m": [44, 49, 45, 68, 61, 59, 78, 11], "v": 51}, {"n": "LINDOMAR ZIMMER & CIA LTDA", "m": [1333, 1255, 1264, 1247, 1212, 1287, 1316, 56], "v": 3992}, {"n": "ALFA DO BRASIL CONSTRUTORA LTDA", "m": [0, 0, 0, 0, 0, 0, 0, 0], "v": 300}, {"n": "LIMA EVALDT SOLUCOES IMOBILIARIAS LTDA", "m": [0, 0, 0, 0, 0, 0, 0, 0], "v": 100}];
 var MESES = ["Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set"];
 (function(){
-  var totalB7 = ADMS.reduce(function(s,a){return s+a.m[6]},0);
-  var totalB8 = ADMS.reduce(function(s,a){return s+a.m[7]},0);
+  var cm = ADMS.filter(function(a){return a.v>0});
+  var tm = cm.reduce(function(s,a){return s+a.v},0);
+  var b7 = ADMS.reduce(function(s,a){return s+a.m[6]},0);
+  var b8 = ADMS.reduce(function(s,a){return s+a.m[7]},0);
   document.getElementById("kpis").innerHTML =
-    '<div class=kpi><div class=val>'+ADMS.length+'</div><div class=lbl>ADMs Ativas (>100 bol)</div></div>'+
-    '<div class=kpi><div class=val>'+ADMS.reduce(function(s,a){return s+a.v},0).toLocaleString()+'</div><div class=lbl>Total Boletos (Fev-Set)</div></div>'+
-    '<div class=kpi><div class=val>'+totalB7.toLocaleString()+'</div><div class=lbl>Boletos Agosto</div></div>'+
-    '<div class=kpi><div class=val>'+totalB8.toLocaleString()+'</div><div class=lbl>Boletos Setembro</div></div>'+
-    '<div class=kpi><div class=val>'+((totalB8/totalB7-1)*100).toFixed(1)+'%</div><div class=lbl>Var. Ago→Set</div></div>';
-
-  var top20 = ADMS.slice(0,20);
-  new Chart(document.getElementById("chartTop"),{
-    type:"bar",
-    data:{
-      labels:top20.map(function(a){return a.n.substring(0,25)}),
-      datasets:[
-        {label:"Ago",data:top20.map(function(a){return a.m[6]}),backgroundColor:"rgba(20,54,92,0.85)",borderColor:"#14365C",borderWidth:1,borderRadius:4},
-        {label:"Set",data:top20.map(function(a){return a.m[7]}),backgroundColor:"rgba(244,183,44,0.85)",borderColor:"#F4B72C",borderWidth:1,borderRadius:4}
-      ]
-    },
-    options:{
-      responsive:true,indexAxis:"y",
-      plugins:{legend:{position:"bottom",labels:{usePointStyle:true,padding:20,font:{family:"Inter",size:10}}}},
-      scales:{x:{ticks:{color:"#5E748C"},grid:{color:"#DCE3EC"}},y:{ticks:{font:{size:9},color:"#5E748C"},grid:{display:false}}}
-    }
-  });
-
+    '<div class=kpi><div class=val>'+cm.length+'</div><div class=lbl>ADMs com Meta</div></div>'+
+    '<div class=kpi><div class=val>'+tm.toLocaleString()+'</div><div class=lbl>Vol. Imob Total</div></div>'+
+    '<div class=kpi><div class=val>'+b7.toLocaleString()+'</div><div class=lbl>Boletos Agosto</div></div>'+
+    '<div class=kpi><div class=val>'+b8.toLocaleString()+'</div><div class=lbl>Boletos Setembro</div></div>'+
+    '<div class=kpi><div class=val>'+(tm>0?(b8/tm*100).toFixed(1):"0")+'%</div><div class=lbl>Ating. Set</div></div>';
+  var metaM = MESES.map(function(_,i){var b=ADMS.reduce(function(s,a){return s+a.m[i]},0);return tm>0?(b/tm*100):0});
+  new Chart(document.getElementById("chartAtingimento"),{type:"bar",data:{labels:MESES,datasets:[{label:"% Atingimento",data:metaM,backgroundColor:metaM.map(function(v){return v>=100?"rgba(20,54,92,.85)":v>=80?"rgba(244,183,44,.85)":"rgba(197,34,31,.7)"}),borderColor:metaM.map(function(v){return v>=100?"#14365C":v>=80?"#F4B72C":"#C5221F"}),borderWidth:1,borderRadius:5}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.raw.toFixed(1)+"%"}}}},scales:{y:{beginAtZero:true,ticks:{color:"#5E748C",callback:function(v){return v+"%"}},grid:{color:"#DCE3EC"}},x:{ticks:{color:"#5E748C"},grid:{display:false}}}}});
   var tb = document.getElementById("tabela");
-  ADMS.forEach(function(a,i){
+  var sx = ADMS.slice().sort(function(a,b){return b.v-a.v||b.m[7]-a.m[7]});
+  sx.forEach(function(a,i){
+    var n=a.n, m=a.m, mt=a.v;
+    var pa=mt>0?(m[7]/mt*100):0;
+    var bg=pa>=100?"badge bg":pa>=50?"badge bw":"badge br";
     var tr=document.createElement("tr");
-    var h='<td style=color:var(--muted)>'+(i+1)+'</td><td style=font-weight:600>'+a.n+'</td><td class=city>'+a.city+'</td><td class=num style=font-weight:600;color:var(--navy)>'+a.v.toLocaleString()+'</td>';
+    var h='<td style=color:var(--muted)>'+(i+1)+'</td><td style=font-weight:600>'+n+'</td><td class=num style=font-weight:600;color:var(--navy)>'+(mt>0?mt.toLocaleString():'<span style=color:var(--muted)>\u2014</span>')+'</td>';
     for(var j=0;j<8;j++){
-      var v=a.m[j];
-      h+='<td class=num>'+(v>0?'<span style=font-weight:500>'+v.toLocaleString()+'</span>':'<span style=color:var(--muted)>\u2014</span>')+'</td>';
+      var v=m[j], p=mt>0?(v/mt*100):0;
+      h+='<td class=num>'+(v>0?'<span style=font-weight:500>'+v.toLocaleString()+'</span>':'<span style=color:var(--muted)>\u2014</span>')+'<br><small style=color:var(--muted)>'+(mt>0?p.toFixed(1)+"%":"\u2014")+'</small></td>';
     }
-    tr.innerHTML=h; tb.appendChild(tr);
+    h+='<td class=num><span class="'+bg+'">'+pa.toFixed(1)+'%</span></td>';
+    tr.innerHTML=h;
+    tb.appendChild(tr);
   });
 })();
 </script>
